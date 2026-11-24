@@ -5,13 +5,15 @@ Writes the single-line entry to /output/entry.txt (no trailing newline).
 Pure standard library. The grader runs this as uid 65534 on a read-only
 repo with /output as a root-owned bind mount, so: write the file, chmod
 the FILE 0o644, and never chmod the /output directory itself.
+The output directory can be overridden with MAKEFUN_OUTPUT_DIR for local
+testing; it defaults to /output when the variable is unset or empty.
 """
 
 import os
 
 ENTRY = 'WARNING: Will say "I\'m fine" while visibly on fire. Offer snacks, not advice.'
 
-OUT_DIR = "/output"
+OUT_DIR = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
 OUT_PATH = os.path.join(OUT_DIR, "entry.txt")
 
 
